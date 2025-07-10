@@ -1,0 +1,17 @@
+<span>
+    @for(l of locales; track l; let isLast = $last)
+    {
+        @if(l === locale())
+        {
+            <b>{{ l | uppercase }}</b>
+        }
+        @else
+        {
+            <a href (click)="onLocaleSelectorClicked(l); $event.preventDefault();">{{ l | uppercase }}</a>
+        }
+        @if(!isLast)
+        {
+            <span class="ms-2 me-2">|</span>
+        }
+    }
+</span>

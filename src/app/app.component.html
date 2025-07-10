@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="text-end">
+    <span class="me-3">
+      <a href="#" data-id="howitworks" class="link-primary" 
+        data-bs-toggle="modal" data-bs-target="#modalWindow" 
+        (click)="onHowItWorksClicked()">{{'app.howitworks' | transloco}}</a>
+    </span>
+    <app-locale-picker [locale]="locale" (localeChange)="onLocaleChanged($event)"></app-locale-picker>
+  </div>
+  <h1 class="text-center">{{ 'app.title' | transloco }}</h1> 
+  <p class="lead">{{ 'app.lead' | transloco }}</p>
+  <div class="row">
+    <div class="col">
+      <app-datetimelangpicker [(nameLang)]="nameLang" [locale]="locale" [dateTime]="dtz" (dateTimeChange)="onDateTimeChanged($event)"></app-datetimelangpicker>
+    </div>
+    <div class="col-7">
+      <app-current-solar-term-card [nameLang]="nameLang" [currentSolarEclipticLongitude]="solarEclipticLongitude" (modalWindowDataChanged)="onModalWindowDataChanged($event)"></app-current-solar-term-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-solar-terms-table [nameLang]="nameLang" [currentSolarEclipticLongitude]="solarEclipticLongitude" (modalWindowDataChanged)="onModalWindowDataChanged($event)"></app-solar-terms-table>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalWindow" tabindex="-1" aria-labelledby="modalWindowLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalWindowLabel">{{ 'app.explanation' | transloco }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [innerHtml]=" modalWindowInnerHtml | transloco"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ 'app.understood' | transloco }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div #howitworks [hidden]="true">app.howitworks-explanation</div>
+<div id="overlay" class="position-fixed z-3 top-0 start-0 bottom-0 end-0 bg-dark opacity-50" [hidden]="!isLoading">
+  <div id="overlay-content" class="position-absolute top-50 start-50 translate-middle opacity-100">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p class="text-center"><a href="https://github.com/7baye7/risshun">{{ 'app.docs' | transloco }}</a></p>
+</div>

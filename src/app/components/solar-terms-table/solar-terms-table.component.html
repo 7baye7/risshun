@@ -1,0 +1,69 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">{{ 'season' | transloco }}</th>
+      <th scope="col">{{ 'ecliptic-longitude' | transloco }}</th>
+      <th scope="col" class="col-md-2">{{ 'solar-term' | transloco }}</th>
+      <th scope="col" class="col-md-3">{{ 'pentad' | transloco }} 1</th>
+      <th scope="col" class="col-md-3">{{ 'pentad' | transloco }} 2</th>
+      <th scope="col" class="col-md-3">{{ 'pentad' | transloco }} 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(seasonItem of SOLAR_TERMS | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track seasonItem.key)
+    {
+      @let seasonLongitude = seasonItem.key;
+      @let season = seasonItem.value;
+      @for(solarTermItem of season.solarTerms | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track solarTermItem.key)
+      {
+        @let solarTermLongitude = solarTermItem.key;
+        @let solarTerm = solarTermItem.value;
+        <tr>
+          @if(seasonLongitude == solarTermLongitude)
+          {
+            @let seasonCellStyle = seasonCellStyles.get(seasonLongitude);
+            @let seasonNativeNameInfo = season.nativeNames.get(nameLang());
+            <td rowspan="6" [ngStyle]="seasonCellStyle">
+              <div>{{season.name | transloco }}</div>
+              <div class="text-body-secondary" lang="{{nameLang()}}">{{seasonNativeNameInfo!.nativeName}}</div>
+              @if(seasonNativeNameInfo!.transliteration)
+              {
+                <div class="text-body-secondary fst-italic">{{seasonNativeNameInfo!.transliteration | transloco }}</div>
+              }
+            </td>
+          }
+          @let solarTermCellStyle = solarTermCellStyles.get(solarTermLongitude);
+          @let solarTermNativeNameInfo = solarTerm.nativeNames.get(nameLang());
+          <td [ngStyle]="solarTermCellStyle">{{solarTermLongitude}}°</td>
+          <td [ngStyle]="solarTermCellStyle">
+            <div>{{solarTerm.name | transloco }}</div>
+            <div class="text-body-secondary" lang="{{nameLang()}}">{{solarTermNativeNameInfo!.nativeName}}</div>
+            @if(solarTermNativeNameInfo!.transliteration)
+            {
+              <div class="text-body-secondary fst-italic">{{solarTermNativeNameInfo!.transliteration | transloco }}</div>
+            }
+          </td>
+          @for(pentadItem of solarTerm.pentads | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track pentadItem.key)
+          {
+            @let pentadNativeNameInfo = pentadItem.value.variations.get(nameLang());
+            @if(pentadNativeNameInfo)
+            {
+              @let pentadCellStyle = pentadCellStyles.get(pentadItem.key);
+              <td [ngStyle]="pentadCellStyle">
+                <div>
+                  {{pentadNativeNameInfo.name | transloco }}@if(pentadNativeNameInfo.explanation) { <sup>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalWindow" 
+                      (click)="onExplanationClicked(pentadNativeNameInfo.explanation)">⁇</a>
+                    </sup>
+                  }
+                </div>
+                <div class="text-body-secondary" lang="{{nameLang()}}">{{pentadNativeNameInfo.nativeName}}</div>
+                <div class="text-body-secondary fst-italic">{{pentadNativeNameInfo.transliteration | transloco}}</div>
+              </td>
+            }
+          }
+        </tr>
+      }
+    }
+  </tbody>
+</table>

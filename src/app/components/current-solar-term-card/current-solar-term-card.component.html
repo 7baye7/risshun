@@ -1,0 +1,41 @@
+<div class="card h-100">
+  <div class="card-body">
+    <div class="card-text">
+      <div class="fs-6 lh-base"><span>{{ 'season' | transloco }}</span>:
+          <span class="fw-bold" data-id="season">{{season.name | transloco }}</span> 
+          @let seasonNativeNameInfo = season.nativeNames.get(nameLang());
+          (<span lang="{{nameLang()}}">{{seasonNativeNameInfo!.nativeName}}</span>
+          @if(seasonNativeNameInfo!.transliteration)
+          {
+              <span class="fst-italic ms-2">{{seasonNativeNameInfo!.transliteration | transloco }}</span>
+          })
+      </div>
+      <div class="fs-6 lh-base ps-3"><span>{{ 'solar-term' | transloco }}</span>:
+          <span class="fw-bold">{{solarTerm.name | transloco }}</span> 
+          @let solarTermNativeNameInfo = solarTerm.nativeNames.get(nameLang());
+          (<span lang="{{nameLang()}}">{{solarTermNativeNameInfo!.nativeName}}</span>
+          @if(solarTermNativeNameInfo!.transliteration)
+          {
+              <span class="fst-italic ms-2">{{solarTermNativeNameInfo!.transliteration | transloco }}</span>
+          })
+      </div>
+      <div class="fs-6 lh-base ps-5"><span>{{ 'pentad' | transloco }}</span>:
+          @let pentadNativeNameInfo = pentad.variations.get(nameLang());
+          @if(!pentadNativeNameInfo)
+          {
+            <span class="ms-1" i18n>Not available for this language</span>
+          }
+          @else
+          {
+            <span class="fw-bold">{{pentadNativeNameInfo.name | transloco }}</span>@if(pentadNativeNameInfo.explanation) { <sup>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalWindow" 
+                (click)="onExplanationClicked(pentadNativeNameInfo.explanation)">⁇</a>
+              </sup>
+            }
+            (<span lang="{{nameLang()}}">{{pentadNativeNameInfo.nativeName}}</span>
+            <span class="fst-italic ms-2">{{pentadNativeNameInfo.transliteration | transloco }}</span>)
+          }
+      </div>
+    </div>
+  </div>
+</div>

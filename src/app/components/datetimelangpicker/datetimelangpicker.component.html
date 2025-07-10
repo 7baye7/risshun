@@ -1,0 +1,51 @@
+<div class="card h-100">
+  <div class="card-body">
+    <div class="card-text">
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="datepicker">{{ 'datetimelangpicker.date-and-time' | transloco }}</label>
+        <input id="datepicker" class="form-control form-control-sm"
+          type="datetime-local"
+          [formControl]="dateTimeFormControl"
+          [ngClass]="{'is-invalid': dateTimeFormControl.invalid && (dateTimeFormControl.dirty || dateTimeFormControl.touched)}"
+          aria-describedby="feedback"/>
+        <div id="feedback" class="invalid-feedback order-last">
+          @if(dateTimeFormControl.hasError('min'))
+          {
+            {{ 'datetimelangpicker.date-and-time-less-than-min' | transloco: { datetime: MIN_DATE | date: 'yyyy-MM-dd HH:mm' } }}
+          }
+          @else if(dateTimeFormControl.hasError('max'))
+          {
+            {{ 'datetimelangpicker.date-and-time-greater-than-max' | transloco: { datetime: MAX_DATE | date: 'yyyy-MM-dd HH:mm' } }}
+          }
+          @else
+          {
+            {{ 'datetimelangpicker.invalid-date-and-time' | transloco }}
+          }
+        </div>
+        <label class="input-group-text" for="datepicker">
+          <a [href]="link()" [title]=" 'datetimelangpicker.link' | transloco">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9q-.13 0-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+              <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4 4 0 0 1-.82 1H12a3 3 0 1 0 0-6z"/>
+            </svg>
+          </a>
+        </label>
+        <label class="input-group-text" for="datepicker">{{solarEclipticLongitude() | degrees}}</label>
+      </div>
+      <div class="input-group">
+        <label class="col-form-label pt-0 small me-2">{{ 'datetimelangpicker.display-names-in' | transloco }}</label>
+        @for(langItem of AVAILABLE_SOLAR_TERM_DISPLAY_LANGS | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track langItem.key)
+        {
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="lang-{{langItem.key}}" 
+                [value]="langItem.key" [checked]="langItem.key == nameLang()" 
+                (change)="onLangSelectionChanged(langItem.key)">
+            <label class="form-check-label small" for="lang-{{langItem.key}}">
+              {{langItem.value | transloco}}
+            </label>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
