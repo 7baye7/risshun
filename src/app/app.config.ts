@@ -5,11 +5,15 @@ import { provideHttpClient } from '@angular/common/http';
 import { TranslocoHttpLoader } from './business-logic/transloco/transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { DEFAULT_LOCALE } from './models/constants';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideHttpClient(), provideTransloco({
+    provideRouter(routes),
+    provideHttpClient(),
+    [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+    provideTransloco({
         config: { 
           availableLangs: ['en', 'ru'],
           defaultLang: DEFAULT_LOCALE,

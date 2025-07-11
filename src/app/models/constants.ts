@@ -1,5 +1,6 @@
 import { KeyValue } from "@angular/common";
 import { SolarTermInfo, Variation, Pentad, ExtendedVariation, Season } from "./solar-term-info";
+import { FaviconInfo } from "./favicon";
 
 export const DEFAULT_LOCALE = 'en';
 export const DEFAULT_SOLAR_TERM_DISPLAY_LANG = 'zh';
@@ -12,6 +13,13 @@ export const AVAILABLE_SOLAR_TERM_DISPLAY_LANGS = new Map<string, string>([
   [ 'zh', 'AVAILABLE_SOLAR_TERM_DISPLAY_LANGS.zh' ],
   [ 'ja', 'AVAILABLE_SOLAR_TERM_DISPLAY_LANGS.ja' ]
 ]);
+
+export const FAVICONS = [
+  <FaviconInfo>{ rel: 'icon', type: 'image/png', relativeHref: '/favicon-96x96.png', sizes: '96x96' },
+  <FaviconInfo>{ rel: 'icon', type: 'image/svg+xml', relativeHref: '/favicon.svg' },
+  <FaviconInfo>{ rel: 'shortcut icon', relativeHref: '/favicon.ico' },
+  <FaviconInfo>{ rel: 'apple-touch-icon', relativeHref: '/apple-touch-icon.png', sizes: '180x180' },
+];
 
 export const SOLAR_TERMS = new Map<number, Season>([
   [ 315, <Season>{ 

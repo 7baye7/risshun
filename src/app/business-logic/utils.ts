@@ -68,4 +68,20 @@ export class Utils {
       return (availableLangs as { id: string; label: string }[]).map(lang => lang.id);
     }
   }
+
+  /**
+   * Joins relative browser paths
+   * @param parts - paths to be joined
+   * @returns joined relative browser path
+   */
+  static pathJoin(parts: string[])
+  {
+    if(parts.length === 0)
+    {
+      return '';
+    }
+    const separator = '/';
+    const replace = new RegExp(separator+'{1,}', 'g');
+    return parts.join(separator).replace(replace, separator);
+  }
 }

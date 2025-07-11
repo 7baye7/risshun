@@ -6,10 +6,11 @@ import { CurrentSolarTermCardComponent } from './components/current-solar-term-c
 import { SolarTermsTableComponent } from './components/solar-terms-table/solar-terms-table.component';
 import { LocalePickerComponent } from './components/locale-picker/locale-picker.component';
 import { Utils } from './business-logic/utils';
-import { AVAILABLE_SOLAR_TERM_DISPLAY_LANGS, DEFAULT_SOLAR_TERM_DISPLAY_LANG, MAX_DATE, MIN_DATE } from './models/constants';
+import { AVAILABLE_SOLAR_TERM_DISPLAY_LANGS, DEFAULT_SOLAR_TERM_DISPLAY_LANG, FAVICONS, MAX_DATE, MIN_DATE } from './models/constants';
 import {Decimal} from 'decimal.js';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { Subscription, take } from "rxjs";
+import { FaviconService } from './services/favicon.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private translocoSubscription: Subscription | null;
 
-  constructor(private translocoService: TranslocoService, private route: ActivatedRoute, private titleService:Title)
+  constructor(private translocoService: TranslocoService,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private faviconService: FaviconService)
   {
     this.dtz = new Date();
     this.solarEclipticLongitude = Utils.getSolarEclipticLongitude(this.dtz);
@@ -87,8 +91,12 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void
   {
+    // set title
     this.translocoService.selectTranslate('app.title')
       .subscribe(translation => this.titleService.setTitle(translation));
+
+    // set favicons
+    this.faviconService.setFavicons(FAVICONS);
 
     this.route.queryParams.subscribe(queryParams => {
       // set datetime

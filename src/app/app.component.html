@@ -10,10 +10,10 @@
   <h1 class="text-center">{{ 'app.title' | transloco }}</h1> 
   <p class="lead">{{ 'app.lead' | transloco }}</p>
   <div class="row">
-    <div class="col">
+    <div class="col-sm-12 col-md mb-1">
       <app-datetimelangpicker [(nameLang)]="nameLang" [locale]="locale" [dateTime]="dtz" (dateTimeChange)="onDateTimeChanged($event)"></app-datetimelangpicker>
     </div>
-    <div class="col-7">
+    <div class="col-sm-12 col-md-7 mb-1">
       <app-current-solar-term-card [nameLang]="nameLang" [currentSolarEclipticLongitude]="solarEclipticLongitude" (modalWindowDataChanged)="onModalWindowDataChanged($event)"></app-current-solar-term-card>
     </div>
   </div>

@@ -41,4 +41,14 @@ describe('Utils', () => {
       expect(result).toEqual(['en', 'ru']);
     });
   });
+
+  [
+    { expectedInput: ['/foo/', '/bar/', '/baz.html'], expectedOutput: '/foo/bar/baz.html' },
+    { expectedInput: ['/foo/bar', 'baz/' ], expectedOutput: '/foo/bar/baz/' },
+    { expectedInput: [], expectedOutput: '' }
+  ].forEach(({expectedInput, expectedOutput}) => {
+    it(`pathJoin joins relative browser paths ${JSON.stringify(expectedInput)} into ${expectedOutput}`, () => {
+      expect(Utils.pathJoin(expectedInput)).toBe(expectedOutput);
+    });
+  });
 });
