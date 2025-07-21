@@ -10,7 +10,7 @@
               <span class="fst-italic ms-2">{{seasonNativeNameInfo!.transliteration | transloco }}</span>
           })
       </div>
-      <div class="fs-6 lh-base ps-3"><span>{{ 'solar-term' | transloco }}</span>:
+      <div class="fs-6 lh-base ps-4"><span>{{ 'solar-term' | transloco }}</span>:
           <span class="fw-bold">{{solarTerm.name | transloco }}</span> 
           @let solarTermNativeNameInfo = solarTerm.nativeNames.get(nameLang());
           (<span lang="{{nameLang()}}">{{solarTermNativeNameInfo!.nativeName}}</span>
