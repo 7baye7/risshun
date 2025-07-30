@@ -33,18 +33,20 @@
         <label class="input-group-text d-none d-sm-block" for="datepicker">{{solarEclipticLongitude() | degrees}}</label>
       </div>
       <div class="input-group">
-        <label class="col-form-label pt-0 small me-2">{{ 'datetimelangpicker.display-names-in' | transloco }}</label>
-        @for(langItem of AVAILABLE_SOLAR_TERM_DISPLAY_LANGS | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track langItem.key)
-        {
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="lang-{{langItem.key}}" 
-                [value]="langItem.key" [checked]="langItem.key == nameLang()" 
-                (change)="onLangSelectionChanged(langItem.key)">
-            <label class="form-check-label small" for="lang-{{langItem.key}}">
-              {{langItem.value | transloco}}
-            </label>
-          </div>
-        }
+        <label class="col-form-label pt-0 me-2">{{ 'datetimelangpicker.display-names-in' | transloco }}</label>
+        <div>
+          @for(langItem of AVAILABLE_SOLAR_TERM_DISPLAY_LANGS | keyvalue : KEY_VALUE_PIPE_ORIGINAL_ORDER; track langItem.key)
+          {
+            <div class="form-check form-check-inline-sm">
+              <input class="form-check-input" type="radio" id="lang-{{langItem.key}}" 
+                  [value]="langItem.key" [checked]="langItem.key == nameLang()" 
+                  (change)="onLangSelectionChanged(langItem.key)">
+              <label class="form-check-label" for="lang-{{langItem.key}}">
+                {{langItem.value | transloco}}
+              </label>
+            </div>
+          }
+        </div>
       </div>
     </div>
   </div>

@@ -1,5 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-@use "../node_modules/bootstrap/scss/bootstrap" with (
+@use "../node_modules/bootstrap/scss/bootstrap" as b with (
     $primary: #5D719E
 );
+
+.form-check-inline-sm {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+@include b.media-breakpoint-down(sm)
+{
+  .form-check-inline-sm
+  {
+    display: block;
+    margin-right: auto;
+  }
+}
