@@ -22,7 +22,7 @@
             {{ 'datetimelangpicker.invalid-date-and-time' | transloco }}
           }
         </div>
-        <label class="input-group-text" for="datepicker">
+        <label class="input-group-text d-none d-sm-block" for="datepicker">
           <a [href]="link()" [title]=" 'datetimelangpicker.link' | transloco">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9q-.13 0-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -30,7 +30,7 @@
             </svg>
           </a>
         </label>
-        <label class="input-group-text" for="datepicker">{{solarEclipticLongitude() | degrees}}</label>
+        <label class="input-group-text d-none d-sm-block" for="datepicker">{{solarEclipticLongitude() | degrees}}</label>
       </div>
       <div class="input-group">
         <label class="col-form-label pt-0 small me-2">{{ 'datetimelangpicker.display-names-in' | transloco }}</label>
